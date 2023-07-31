@@ -1,9 +1,13 @@
 package main
 
 import (
-	"github.com/zzingobomi/zzingocoin/cli"
+	"github.com/zzingobomi/zzingocoin/blockchain"
+	"github.com/zzingobomi/zzingocoin/db"
 )
 
 func main() {
-	cli.Start()
+	blockchain.Blockchain().AddBlock("First")
+	blockchain.Blockchain().AddBlock("Second")
+	blockchain.Blockchain().AddBlock("Third")
+	db.DB().Close()
 }
