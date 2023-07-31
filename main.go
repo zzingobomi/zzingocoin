@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/zzingobomi/zzingocoin/explorer"
+	"github.com/zzingobomi/zzingocoin/cli"
 )
 
 func main() {
-	explorer.Start()
+	cli.Start()
 }
