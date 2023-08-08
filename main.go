@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/zzingobomi/zzingocoin/blockchain"
 	"github.com/zzingobomi/zzingocoin/cli"
+	"github.com/zzingobomi/zzingocoin/db"
 )
 
 func main() {
-	blockchain.Blockchain()
+	defer db.Close()
 	cli.Start()
 }

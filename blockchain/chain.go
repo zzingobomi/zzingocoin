@@ -21,7 +21,7 @@ func (b *blockchain) restore(data []byte) {
 }
 
 func (b *blockchain) persist() {
-	db.SaveBlockchain(utils.ToBytes(b))
+	db.SaveCheckpoint(utils.ToBytes(b))
 }
 
 func (b *blockchain) AddBlock(data string) {
@@ -31,7 +31,20 @@ func (b *blockchain) AddBlock(data string) {
 	b.persist()
 }
 
-// func (b *blockchain) Blocks() []*Block {}
+func (b *blockchain) Blocks() []*Block {
+	var blocks []*Block
+	hashCursor := b.NewestHash
+	for {
+		block, _ := FindBlock(hashCursor)
+		blocks = append(blocks, block)
+		if block.PrevHash != "" {
+			hashCursor = block.PrevHash
+		} else {
+			break
+		}
+	}
+	return blocks
+}
 
 func Blockchain() *blockchain {
 	if b == nil {
@@ -46,6 +59,5 @@ func Blockchain() *blockchain {
 			}
 		})
 	}
-	fmt.Println(b.NewestHash)
 	return b
 }
